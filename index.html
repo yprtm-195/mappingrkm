@@ -32,7 +32,9 @@
         font-weight: 800;
         border: 2px solid white;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        transition: transform 0.2s, filter 0.2s;
+        transition:
+          transform 0.2s,
+          filter 0.2s;
       }
       .custom-div-icon:hover {
         transform: scale(1.15);
@@ -41,415 +43,677 @@
       }
 
       /* Custom scrollbar */
-      .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-      .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
 
       /* Sidebar toggle on mobile */
-      #sidebar { transition: max-height 0.35s ease, opacity 0.3s; }
-      #sidebarContent.collapsed { display: none; }
+      #sidebar {
+        transition:
+          max-height 0.35s ease,
+          opacity 0.3s;
+      }
+      #sidebarContent.collapsed {
+        display: none;
+      }
 
       /* Responsif: Map lebih kecil di mobile */
-      #mapContainer { min-height: 300px; }
+      #mapContainer {
+        min-height: 300px;
+      }
       @media (min-width: 768px) {
-        #mapContainer { height: 420px; }
+        #mapContainer {
+          height: 420px;
+        }
       }
 
       /* Nav bar peta: wrap di mobile */
-      #mapNavBar { flex-wrap: wrap; gap: 6px; }
-      #mapNavBar .nav-select { min-width: 0; flex: 1 1 120px; }
+      #mapNavBar {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      #mapNavBar .nav-select {
+        min-width: 0;
+        flex: 1 1 120px;
+      }
 
       /* Tabel: horizontal scroll di mobile */
-      .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
 
       /* Tombol sidebar toggle */
-      #sidebarToggle { display: flex; }
+      #sidebarToggle {
+        display: flex;
+      }
       @media (min-width: 768px) {
-        #sidebarToggle { display: none; }
-        #sidebarContent.collapsed { display: flex !important; }
+        #sidebarToggle {
+          display: none;
+        }
+        #sidebarContent.collapsed {
+          display: flex !important;
+        }
+      }
+
+      /* === MAP FULLSCREEN === */
+      #mapContainer.fullscreen {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 10px !important;
+      }
+      #mapContainer.fullscreen #map {
+        border-radius: 8px !important;
+      }
+
+      /* === TABLE FULLSCREEN / EXPANDED === */
+      #tableCard.fullscreen {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 16px !important;
       }
     </style>
   </head>
   <body class="bg-slate-100 font-sans overflow-x-hidden">
     <!-- Wrapper utama -->
     <div class="flex flex-col md:flex-row md:h-screen md:p-4 gap-0 md:gap-4">
-    <!-- Sidebar / Control Panel -->
-    <div id="sidebar" class="bg-white shadow-xl w-full md:w-96 flex flex-col md:h-full z-20 shrink-0 rounded-none md:rounded-2xl">
-
-      <!-- Header Sidebar (klik untuk toggle di mobile) -->
-      <div id="sidebarToggle" class="p-4 md:p-5 flex items-center gap-2 cursor-pointer md:cursor-default select-none" onclick="toggleSidebar()">
-        <div class="p-2 bg-blue-600 rounded-xl text-white shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+      <!-- Sidebar / Control Panel -->
+      <div
+        id="sidebar"
+        class="bg-white shadow-xl w-full md:w-96 flex flex-col md:h-full z-20 shrink-0 rounded-none md:rounded-2xl"
+      >
+        <!-- Header Sidebar (klik untuk toggle di mobile) -->
+        <div
+          id="sidebarToggle"
+          class="p-4 md:p-5 flex items-center gap-2 cursor-pointer md:cursor-default select-none"
+          onclick="toggleSidebar()"
+        >
+          <div class="p-2 bg-blue-600 rounded-xl text-white shrink-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+              />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h1 class="text-lg font-bold text-slate-800 leading-tight">
+              Mapping Rute MDS
+            </h1>
+            <p class="text-xs text-slate-500 font-medium">
+              Alfa • Indomaret • Midi Integration
+            </p>
+          </div>
+          <svg
+            id="sidebarChevron"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-slate-400 md:hidden transition-transform duration-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </div>
-        <div class="flex-1 min-w-0">
-          <h1 class="text-lg font-bold text-slate-800 leading-tight">Mapping Rute MDS</h1>
-          <p class="text-xs text-slate-500 font-medium">Alfa • Indomaret • Midi Integration</p>
-        </div>
-        <svg id="sidebarChevron" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 md:hidden transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
 
-      <!-- Collapsible content sidebar -->
-      <div id="sidebarContent" class="flex flex-col gap-4 overflow-y-auto custom-scrollbar px-4 pb-4 md:px-5 md:pb-5 md:flex-1">
-
-      <hr class="border-slate-200" />
-
-      <!-- Form Inputs -->
-      <div class="flex flex-col gap-3 text-sm">
-        <!-- 1. Upload CSV -->
-        <div>
-          <label
-            class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
-            >1. Upload CSV Toko</label
-          >
-          <input
-            type="file"
-            id="fileInput"
-            accept=".csv"
-            class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 bg-slate-50 focus:outline-none focus:border-blue-500 transition-colors file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          />
-        </div>
-
-        <!-- 2. Pilih Bulan & Tahun -->
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label
-              class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
-              >2. Bulan & Tahun</label
-            >
-            <input
-              type="month"
-              id="monthPicker"
-              onchange="prosesKalkulasi()"
-              class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 focus:outline-none focus:border-blue-500 font-semibold"
-            />
-          </div>
-          <div>
-            <label
-              class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
-              >Jumlah MDS</label
-            >
-            <input
-              type="number"
-              id="jmlMds"
-              value="2"
-              min="1"
-              max="20"
-              onchange="prosesKalkulasi()"
-              class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 focus:outline-none focus:border-blue-500 font-semibold"
-            />
-          </div>
-        </div>
-
-        <!-- 3. Region Target Standard -->
-        <div>
-          <label
-            class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
-            >3. Region / Target Harian</label
-          >
-          <select
-            id="regionSelect"
-            onchange="handleRegionChange()"
-            class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 focus:outline-none focus:border-blue-500 font-semibold bg-white"
-          >
-            <option value="jawa">
-              🏝️ Pulau Jawa (Senin-Jumat: 20 | Sabtu: 15)
-            </option>
-            <option value="luar_jawa">
-              🌋 Luar Jawa (Senin-Jumat: 15 | Sabtu: 10)
-            </option>
-            <option value="custom">⚙️ Custom Target</option>
-          </select>
-        </div>
-
-        <!-- Custom Target Inputs (Hidden by default) -->
+        <!-- Collapsible content sidebar -->
         <div
-          id="customTargetBox"
-          class="hidden grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200"
+          id="sidebarContent"
+          class="flex flex-col gap-4 overflow-y-auto custom-scrollbar px-4 pb-4 md:px-5 md:pb-5 md:flex-1"
         >
-          <div>
-            <label class="text-[11px] font-semibold text-slate-600 block mb-1"
-              >Target Senin-Jumat</label
-            >
-            <input
-              type="number"
-              id="targetFullCustom"
-              value="20"
-              min="1"
-              onchange="prosesKalkulasi()"
-              class="w-full text-xs border border-slate-300 rounded-lg p-1.5"
-            />
-          </div>
-          <div>
-            <label class="text-[11px] font-semibold text-slate-600 block mb-1"
-              >Target Sabtu</label
-            >
-            <input
-              type="number"
-              id="targetSatCustom"
-              value="15"
-              min="1"
-              onchange="prosesKalkulasi()"
-              class="w-full text-xs border border-slate-300 rounded-lg p-1.5"
-            />
-          </div>
-        </div>
+          <hr class="border-slate-200" />
 
-        <!-- 4. Pengaturan Tanggal Visit DC -->
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label
-              class="font-semibold text-slate-700 text-xs uppercase tracking-wider"
-              >4. Hari Visit DC (Ad-hoc)</label
+          <!-- Form Inputs -->
+          <div class="flex flex-col gap-3 text-sm">
+            <!-- 1. Upload CSV -->
+            <div>
+              <label
+                class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
+                >1. Upload CSV Toko</label
+              >
+              <input
+                type="file"
+                id="fileInput"
+                accept=".csv"
+                class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 bg-slate-50 focus:outline-none focus:border-blue-500 transition-colors file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
+            </div>
+
+            <!-- 2. Pilih Bulan & Tahun -->
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label
+                  class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
+                  >2. Bulan & Tahun</label
+                >
+                <input
+                  type="month"
+                  id="monthPicker"
+                  onchange="prosesKalkulasi()"
+                  class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 focus:outline-none focus:border-blue-500 font-semibold"
+                />
+              </div>
+              <div>
+                <label
+                  class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
+                  >Jumlah MDS</label
+                >
+                <input
+                  type="number"
+                  id="jmlMds"
+                  value="2"
+                  min="1"
+                  max="20"
+                  onchange="prosesKalkulasi()"
+                  class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 focus:outline-none focus:border-blue-500 font-semibold"
+                />
+              </div>
+            </div>
+
+            <!-- 3. Region Target Standard -->
+            <div>
+              <label
+                class="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wider"
+                >3. Region / Target Harian</label
+              >
+              <select
+                id="regionSelect"
+                onchange="handleRegionChange()"
+                class="w-full text-xs border-2 border-slate-200 rounded-xl p-2 focus:outline-none focus:border-blue-500 font-semibold bg-white"
+              >
+                <option value="jawa">
+                  🏝️ Pulau Jawa (Senin-Jumat: 20 | Sabtu: 15)
+                </option>
+                <option value="luar_jawa">
+                  🌋 Luar Jawa (Senin-Jumat: 15 | Sabtu: 10)
+                </option>
+                <option value="custom">⚙️ Custom Target</option>
+              </select>
+            </div>
+
+            <!-- Custom Target Inputs (Hidden by default) -->
+            <div
+              id="customTargetBox"
+              class="hidden grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200"
             >
-            <span
-              class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full"
-              >Target: 6 Toko</span
-            >
+              <div>
+                <label
+                  class="text-[11px] font-semibold text-slate-600 block mb-1"
+                  >Target Senin-Jumat</label
+                >
+                <input
+                  type="number"
+                  id="targetFullCustom"
+                  value="20"
+                  min="1"
+                  onchange="prosesKalkulasi()"
+                  class="w-full text-xs border border-slate-300 rounded-lg p-1.5"
+                />
+              </div>
+              <div>
+                <label
+                  class="text-[11px] font-semibold text-slate-600 block mb-1"
+                  >Target Sabtu</label
+                >
+                <input
+                  type="number"
+                  id="targetSatCustom"
+                  value="15"
+                  min="1"
+                  onchange="prosesKalkulasi()"
+                  class="w-full text-xs border border-slate-300 rounded-lg p-1.5"
+                />
+              </div>
+            </div>
+
+            <!-- 4. Pengaturan Tanggal Visit DC -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label
+                  class="font-semibold text-slate-700 text-xs uppercase tracking-wider"
+                  >4. Hari Visit DC (Ad-hoc)</label
+                >
+                <span
+                  class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full"
+                  >Target: 6 Toko</span
+                >
+              </div>
+              <button
+                type="button"
+                onclick="toggleDcModal()"
+                class="w-full bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 text-slate-700 text-xs font-semibold py-2 px-3 rounded-xl transition-colors flex justify-between items-center"
+              >
+                <span id="lblDcCount">0 Hari Visit DC Dipilih</span>
+                <span class="text-blue-600 underline font-bold"
+                  >Pilih Tanggal ➔</span
+                >
+              </button>
+            </div>
           </div>
+
+          <!-- Info Box Summary Capacity -->
+          <div
+            class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col gap-2"
+          >
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-medium text-slate-600">Total Toko di CSV:</span>
+              <span id="lblTotalToko" class="font-bold text-slate-900 text-sm"
+                >0 Toko</span
+              >
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-medium text-slate-600">Total Hari Kerja:</span>
+              <span id="lblRincianHari" class="font-bold text-slate-900"
+                >0 Hari (0 Full | 0 Sabtu | 0 DC)</span
+              >
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-medium text-slate-600"
+                >Kuota Visit / MDS / Bulan:</span
+              >
+              <span id="lblKuotaPerMds" class="font-bold text-blue-700"
+                >0 Kunjungan</span
+              >
+            </div>
+            <div
+              class="flex justify-between items-center text-xs pt-1.5 border-t border-blue-200/60"
+            >
+              <span class="font-medium text-slate-600"
+                >Total Kebutuhan (Semua MDS):</span
+              >
+              <span id="lblTotalTargetBulanan" class="font-bold text-indigo-700"
+                >0 Kunjungan</span
+              >
+            </div>
+
+            <!-- Status Badge Re-visit -->
+            <div
+              id="statusBadgeRevisit"
+              class="mt-1 p-2 rounded-xl text-center text-xs font-bold bg-white border shadow-sm"
+            >
+              Belum ada data CSV.
+            </div>
+          </div>
+
+          <!-- Assign Nama Personel & Area MDS Box -->
+          <div
+            id="mdsNameBoxContainer"
+            class="hidden flex flex-col gap-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-200"
+          >
+            <label
+              class="block font-semibold text-slate-800 text-xs uppercase tracking-wider"
+            >
+              👤 Assign Personel / Area MDS:
+            </label>
+            <p class="text-[11px] text-slate-500 mb-1">
+              Ketik nama personel &amp; area untuk menggantikan label draf
+              (misal: Budi - Tomohon):
+            </p>
+            <div
+              id="mdsNameInputsList"
+              class="flex flex-col gap-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"
+            >
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- Action Button -->
           <button
-            type="button"
-            onclick="toggleDcModal()"
-            class="w-full bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 text-slate-700 text-xs font-semibold py-2 px-3 rounded-xl transition-colors flex justify-between items-center"
+            onclick="generateRuteLengkap()"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-[1.01] shadow-lg shadow-blue-500/30 flex justify-center items-center gap-2 text-sm"
           >
-            <span id="lblDcCount">0 Hari Visit DC Dipilih</span>
-            <span class="text-blue-600 underline font-bold"
-              >Pilih Tanggal ➔</span
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
-          </button>
-        </div>
-      </div>
-
-      <!-- Info Box Summary Capacity -->
-      <div
-        class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col gap-2"
-      >
-        <div class="flex justify-between items-center text-xs">
-          <span class="font-medium text-slate-600">Total Toko di CSV:</span>
-          <span id="lblTotalToko" class="font-bold text-slate-900 text-sm"
-            >0 Toko</span
-          >
-        </div>
-        <div class="flex justify-between items-center text-xs">
-          <span class="font-medium text-slate-600">Total Hari Kerja:</span>
-          <span id="lblRincianHari" class="font-bold text-slate-900"
-            >0 Hari (0 Full | 0 Sabtu | 0 DC)</span
-          >
-        </div>
-        <div class="flex justify-between items-center text-xs">
-          <span class="font-medium text-slate-600"
-            >Kuota Visit / MDS / Bulan:</span
-          >
-          <span id="lblKuotaPerMds" class="font-bold text-blue-700"
-            >0 Kunjungan</span
-          >
-        </div>
-        <div
-          class="flex justify-between items-center text-xs pt-1.5 border-t border-blue-200/60"
-        >
-          <span class="font-medium text-slate-600"
-            >Total Kebutuhan (Semua MDS):</span
-          >
-          <span id="lblTotalTargetBulanan" class="font-bold text-indigo-700"
-            >0 Kunjungan</span
-          >
-        </div>
-
-        <!-- Status Badge Re-visit -->
-        <div
-          id="statusBadgeRevisit"
-          class="mt-1 p-2 rounded-xl text-center text-xs font-bold bg-white border shadow-sm"
-        >
-          Belum ada data CSV.
-        </div>
-      </div>
-
-      <!-- Filter Tampilan Peta (MDS) -->
-      <div
-        class="flex flex-col gap-1.5 bg-slate-50 p-3 rounded-xl border border-slate-200"
-      >
-        <label
-          class="block font-semibold text-slate-700 text-xs uppercase tracking-wider"
-          >Filter Tim MDS:</label
-        >
-        <select
-          id="filterMds"
-          onchange="renderPetaDanTabel()"
-          class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white font-bold text-slate-800"
-        >
-          <option value="all">Semua MDS (Tim)</option>
-        </select>
-      </div>
-
-      <!-- Action Button -->
-      <button
-        onclick="generateRuteLengkap()"
-        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-[1.01] shadow-lg shadow-blue-500/30 flex justify-center items-center gap-2 text-sm"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        Generate Rute Peta & Tabel
-      </button>
-
-      <!-- Alert Box -->
-      <div
-        id="msgBox"
-        class="hidden p-3 rounded-xl text-xs font-semibold border text-center transition-all"
-      ></div>
-
-      </div><!-- end sidebarContent -->
-    </div><!-- end sidebar -->
-
-    <!-- Area Kanan (Peta, Analytics & Tabel Data) -->
-    <div class="flex-1 flex flex-col gap-4 md:h-full overflow-y-auto custom-scrollbar p-3 md:p-0 md:pr-1">
-      <!-- Peta Leaflet Container -->
-      <div id="mapContainer" class="bg-white p-2.5 rounded-2xl shadow-lg relative border border-slate-200 flex flex-col h-[320px] md:h-[420px] shrink-0">
-        <!-- Header Bar Control Navigasi Peta -->
-        <div id="mapNavBar" class="z-[500] bg-slate-900 text-white p-2 rounded-xl shadow-lg flex items-center justify-between gap-2 mb-2 flex-wrap">
-          <!-- Tombol Prev -->
-          <button type="button" onclick="navigateHari(-1)"
-            class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2.5 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm border border-slate-700 shrink-0">
-            ◀ Prev
-          </button>
-
-          <!-- Select Hari -->
-          <div class="flex items-center gap-1 flex-1 justify-center min-w-0">
-            <select id="filterHari" onchange="renderPetaDanTabel()"
-              class="nav-select text-xs font-bold bg-blue-600 text-white border border-blue-400 rounded-lg py-1.5 px-2 focus:outline-none cursor-pointer w-full text-center shadow-sm">
-              <!-- Options populated via JS -->
-            </select>
-          </div>
-
-          <!-- Tombol Next -->
-          <button type="button" onclick="navigateHari(1)"
-            class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all shadow-md flex items-center gap-1 border border-blue-400 shrink-0">
-            Next ▶
-          </button>
-        </div>
-
-        <!-- Legend Color Bar -->
-        <div
-          id="mdsLegendBar"
-          class="absolute top-16 right-4 z-[500] bg-white/95 backdrop-blur p-2.5 rounded-xl shadow-md border border-slate-200 text-xs flex gap-3 flex-wrap max-w-md hidden"
-        ></div>
-
-        <div id="map" class="h-full w-full rounded-xl z-10 flex-1"></div>
-      </div>
-
-      <!-- Dashboard Analytics Grid (1 col mobile, 3 col desktop) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 shrink-0">
-        <!-- Chart 1: Sebaran Jenis Toko -->
-        <div
-          class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60"
-        >
-          <div class="flex items-center justify-between mb-2">
-            <h3
-              class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
-            >
-              Jenis Toko
-            </h3>
-            <span
-              class="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded-full"
-              >CSV Data</span
-            >
-          </div>
-          <div class="flex-1 relative min-h-0">
-            <canvas id="bannerChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Chart 2: Pembagian Toko Per MDS -->
-        <div
-          class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60"
-        >
-          <div class="flex items-center justify-between mb-2">
-            <h3
-              class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
-            >
-              Beban Kunjungan / MDS
-            </h3>
-            <span
-              class="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full"
-              >Per Tim</span
-            >
-          </div>
-          <div class="flex-1 relative min-h-0">
-            <canvas id="mdsChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Chart 3: Status Visit Kunjungan -->
-        <div class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Status Visit</h3>
-            <span class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full">Visit vs Re-visit</span>
-          </div>
-          <div class="flex-1 relative min-h-0">
-            <canvas id="statusChart"></canvas>
-          </div>
-        </div>
-
-      </div><!-- end chart grid -->
-
-      <!-- Tabel Data -->
-      <div class="bg-white p-3 md:p-4 rounded-2xl shadow-lg min-h-[260px] flex flex-col border border-slate-200 shrink-0">
-        <div class="flex justify-between items-center mb-2.5 gap-2">
-          <div class="min-w-0">
-            <h2 class="text-sm md:text-base font-bold text-slate-800">Daftar Jadwal Rute Toko</h2>
-            <p id="lblTableSub" class="text-xs text-slate-500 truncate">Menampilkan hasil clustering &amp; jadwal kunjungan</p>
-          </div>
-          <button onclick="exportCSV()"
-            class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-3 rounded-xl shadow flex gap-1.5 items-center transition-colors shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              <path
+                fill-rule="evenodd"
+                d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z"
+                clip-rule="evenodd"
+              />
             </svg>
-            Export CSV
+            Generate Rute Peta & Tabel
           </button>
+
+          <!-- Alert Box -->
+          <div
+            id="msgBox"
+            class="hidden p-3 rounded-xl text-xs font-semibold border text-center transition-all"
+          ></div>
+
+          <!-- Cache Status Notice Box -->
+          <div
+            id="cacheNoticeBox"
+            class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-semibold text-emerald-800 flex justify-between items-center shadow-sm"
+          >
+            <div class="flex items-center gap-1.5 min-w-0">
+              <span class="text-sm shrink-0">💾</span>
+              <span class="truncate">Auto-Save Aktif (Tersimpan)</span>
+            </div>
+            <button
+              onclick="clearCache()"
+              title="Hapus semua data cache &amp; mulai dari awal"
+              class="text-[10px] bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2.5 rounded-lg shadow shrink-0 transition-colors"
+            >
+              Reset Data
+            </button>
+          </div>
+        </div>
+        <!-- end sidebarContent -->
+      </div>
+      <!-- end sidebar -->
+
+      <!-- Area Kanan (Peta, Analytics & Tabel Data) -->
+      <div
+        class="flex-1 flex flex-col gap-4 md:h-full overflow-y-auto custom-scrollbar p-3 md:p-0 md:pr-1"
+      >
+        <!-- Peta Leaflet Container -->
+        <div
+          id="mapContainer"
+          class="bg-white p-2.5 rounded-2xl shadow-lg relative border border-slate-200 flex flex-col h-[320px] md:h-[420px] shrink-0"
+        >
+          <!-- Header Bar Control Navigasi Peta -->
+          <div
+            id="mapNavBar"
+            class="z-[500] bg-slate-900 text-white p-2 rounded-xl shadow-lg flex items-center justify-between gap-2 mb-2 flex-wrap"
+          >
+            <!-- Select MDS Filter -->
+            <select
+              id="filterMds"
+              onchange="renderPetaDanTabel()"
+              class="text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 rounded-lg py-1.5 px-2.5 focus:outline-none cursor-pointer shrink-0 shadow-sm hover:bg-slate-700 transition-colors"
+            >
+              <option value="all">Semua MDS (Tim)</option>
+            </select>
+
+            <!-- Tombol Prev -->
+            <button
+              type="button"
+              onclick="navigateHari(-1)"
+              class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2.5 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm border border-slate-700 shrink-0"
+            >
+              ◀ Prev
+            </button>
+
+            <!-- Select Hari -->
+            <div class="flex items-center gap-1 flex-1 justify-center min-w-0">
+              <select
+                id="filterHari"
+                onchange="renderPetaDanTabel()"
+                class="nav-select text-xs font-bold bg-blue-600 text-white border border-blue-400 rounded-lg py-1.5 px-2 focus:outline-none cursor-pointer w-full text-center shadow-sm"
+              >
+                <!-- Options populated via JS -->
+              </select>
+            </div>
+
+            <!-- Tombol Next -->
+            <button
+              type="button"
+              onclick="navigateHari(1)"
+              class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all shadow-md flex items-center gap-1 border border-blue-400 shrink-0"
+            >
+              Next ▶
+            </button>
+
+            <!-- Tombol Fullscreen -->
+            <button
+              type="button"
+              id="btnFullscreen"
+              onclick="toggleMapFullscreen()"
+              title="Fullscreen Peta"
+              class="bg-slate-700 hover:bg-slate-600 text-white px-2.5 py-1.5 rounded-lg text-xs transition-all border border-slate-600 shrink-0 flex items-center gap-1"
+            >
+              <svg
+                id="iconFullscreenOpen"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3.5 w-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                />
+              </svg>
+              <svg
+                id="iconFullscreenClose"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3.5 w-3.5 hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 9V4m0 0H4m5 0L3 10m12-6v5m0 0h5m-5 0l6-6M9 20v-5m0 0H4m5 0l-6 6m12-6h5m-5 0v5m0 0l6 6"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Legend Color Bar -->
+          <div
+            id="mdsLegendBar"
+            class="absolute top-16 right-4 z-[500] bg-white/95 backdrop-blur p-2.5 rounded-xl shadow-md border border-slate-200 text-xs flex gap-3 flex-wrap max-w-md hidden"
+          ></div>
+
+          <div id="map" class="h-full w-full rounded-xl z-10 flex-1"></div>
         </div>
 
-        <!-- Scrollable Table (horizontal scroll on mobile) -->
-        <div class="flex-1 border border-slate-200 rounded-xl overflow-x-auto">
-          <table class="w-full text-xs text-left text-slate-600 min-w-[600px]">
-            <thead class="text-[11px] text-slate-700 uppercase bg-slate-100 sticky top-0 shadow-sm z-10 font-bold">
-              <tr>
-                <th scope="col" class="px-3 py-2.5 text-center w-10">No</th>
-                <th scope="col" class="px-3 py-2.5 text-center">Tanggal &amp; Hari</th>
-                <th scope="col" class="px-3 py-2.5 text-center">Tim / MDS</th>
-                <th scope="col" class="px-3 py-2.5 text-center">Tipe Target</th>
-                <th scope="col" class="px-3 py-2.5 text-center">Status Visit</th>
-                <th scope="col" class="px-3 py-2.5">Nama Toko</th>
-                <th scope="col" class="px-3 py-2.5">Latitude</th>
-                <th scope="col" class="px-3 py-2.5">Longitude</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              <tr>
-                <td colspan="8" class="px-4 py-8 text-center text-slate-400 font-medium">
-                  Belum ada data. Silakan upload file CSV dan klik "Generate Rute Peta".
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Dashboard Analytics Grid (1 col mobile, 3 col desktop) -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 shrink-0"
+        >
+          <!-- Chart 1: Sebaran Jenis Toko -->
+          <div
+            class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <h3
+                class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
+              >
+                Jenis Toko
+              </h3>
+              <span
+                class="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded-full"
+                >CSV Data</span
+              >
+            </div>
+            <div class="flex-1 relative min-h-0">
+              <canvas id="bannerChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2: Pembagian Toko Per MDS -->
+          <div
+            class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <h3
+                class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
+              >
+                Beban Kunjungan / MDS
+              </h3>
+              <span
+                class="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full"
+                >Per Tim</span
+              >
+            </div>
+            <div class="flex-1 relative min-h-0">
+              <canvas id="mdsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 3: Status Visit Kunjungan -->
+          <div
+            class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <h3
+                class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
+              >
+                Status Visit
+              </h3>
+              <span
+                class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full"
+                >Visit vs Re-visit</span
+              >
+            </div>
+            <div class="flex-1 relative min-h-0">
+              <canvas id="statusChart"></canvas>
+            </div>
+          </div>
         </div>
-      </div><!-- end tabel -->
+        <!-- end chart grid -->
 
-    </div><!-- end right panel -->
-    </div><!-- end wrapper utama -->
+        <!-- Tabel Data -->
+        <div
+          id="tableCard"
+          class="bg-white p-3 md:p-4 rounded-2xl shadow-lg min-h-[260px] flex flex-col border border-slate-200 shrink-0"
+        >
+          <div class="flex justify-between items-center mb-2.5 gap-2 flex-wrap">
+            <div class="min-w-0">
+              <h2 class="text-sm md:text-base font-bold text-slate-800">
+                Daftar Jadwal Rute Toko
+              </h2>
+              <p id="lblTableSub" class="text-xs text-slate-500 truncate">
+                Menampilkan hasil clustering &amp; jadwal kunjungan
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button
+                onclick="toggleTableFullscreen()"
+                class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 px-3 rounded-xl border border-slate-300 shadow-sm flex gap-1.5 items-center transition-all shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                  />
+                </svg>
+                <span id="lblExpandTable">Fullscreen Tabel</span>
+              </button>
+              <button
+                onclick="exportCSV()"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-3 rounded-xl shadow flex gap-1.5 items-center transition-colors shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                  />
+                </svg>
+                Export CSV
+              </button>
+            </div>
+          </div>
 
+          <!-- Scrollable Table (horizontal scroll on mobile) -->
+          <div
+            class="flex-1 border border-slate-200 rounded-xl overflow-x-auto"
+          >
+            <table
+              class="w-full text-xs text-left text-slate-600 min-w-[600px]"
+            >
+              <thead
+                class="text-[11px] text-slate-700 uppercase bg-slate-100 sticky top-0 shadow-sm z-10 font-bold"
+              >
+                <tr>
+                  <th scope="col" class="px-3 py-2.5 text-center w-10">No</th>
+                  <th scope="col" class="px-3 py-2.5 text-center">
+                    Tanggal &amp; Hari
+                  </th>
+                  <th scope="col" class="px-3 py-2.5 text-center">Tim / MDS</th>
+                  <th scope="col" class="px-3 py-2.5 text-center">
+                    Tipe Target
+                  </th>
+                  <th scope="col" class="px-3 py-2.5 text-center">
+                    Status Visit
+                  </th>
+                  <th scope="col" class="px-3 py-2.5 text-center">
+                    Brand / Tipe Toko
+                  </th>
+                  <th scope="col" class="px-3 py-2.5">Nama Toko</th>
+                  <th scope="col" class="px-3 py-2.5">Latitude</th>
+                  <th scope="col" class="px-3 py-2.5">Longitude</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <td
+                    colspan="9"
+                    class="px-4 py-8 text-center text-slate-400 font-medium"
+                  >
+                    Belum ada data. Silakan upload file CSV dan klik "Generate
+                    Rute Peta".
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- end tabel -->
+      </div>
+      <!-- end right panel -->
+    </div>
+    <!-- end wrapper utama -->
 
     <!-- Modal Selecting Visit DC Dates -->
     <div
@@ -505,7 +769,11 @@
     <!-- JavaScript Application Logic -->
     <script>
       // === GLOBAL STATE ===
-      let map = L.map("map").setView([-2.5489, 118.0149], 5);
+      // preferCanvas: true membuat rendering vektor (polyline & circleMarker) menggunakan HTML5 Canvas, super cepat & enteng!
+      let map = L.map("map", { preferCanvas: true }).setView(
+        [-2.5489, 118.0149],
+        5,
+      );
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
       }).addTo(map);
@@ -530,13 +798,120 @@
         "#059669", // Hijau Emerald
       ];
 
-      // Set default Month Picker to current month YYYY-MM
+      // Set default Month Picker & Auto-Restore Cache
       document.addEventListener("DOMContentLoaded", () => {
         const today = new Date();
         const yyyy = today.getFullYear();
         const mm = String(today.getMonth() + 1).padStart(2, "0");
         document.getElementById("monthPicker").value = `${yyyy}-${mm}`;
+
+        // Auto Load Cache saat Halaman Dimuat
+        loadCache();
       });
+
+      // === LOCALSTORAGE CACHE SYSTEM ===
+      const CACHE_KEY = "mds_mapping_cache_v1";
+
+      function saveCache() {
+        try {
+          if (scheduleHasil.length === 0 && rawCsvData.length === 0) return;
+
+          const cacheData = {
+            rawCsvData,
+            scheduleHasil,
+            mdsCustomNames,
+            dcDates: Array.from(dcDatesSet),
+            monthVal: document.getElementById("monthPicker").value,
+            jmlMds: document.getElementById("jmlMds").value,
+            regionVal: document.getElementById("regionSelect").value,
+            targetFullCustom: document.getElementById("targetFullCustom").value,
+            targetSatCustom: document.getElementById("targetSatCustom").value,
+            savedAt: new Date().toISOString(),
+          };
+          localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+          showCacheNotice(true);
+        } catch (e) {
+          console.warn("Gagal menyimpan cache:", e);
+        }
+      }
+
+      function loadCache() {
+        try {
+          const raw = localStorage.getItem(CACHE_KEY);
+          if (!raw) return false;
+
+          const cacheData = JSON.parse(raw);
+          if (!cacheData) return false;
+
+          if (cacheData.rawCsvData && cacheData.rawCsvData.length > 0) {
+            rawCsvData = cacheData.rawCsvData;
+          }
+          if (cacheData.scheduleHasil && cacheData.scheduleHasil.length > 0) {
+            scheduleHasil = cacheData.scheduleHasil;
+          }
+          if (cacheData.mdsCustomNames) {
+            mdsCustomNames = cacheData.mdsCustomNames;
+          }
+          if (cacheData.dcDates) {
+            dcDatesSet = new Set(cacheData.dcDates);
+          }
+
+          if (cacheData.monthVal)
+            document.getElementById("monthPicker").value = cacheData.monthVal;
+          if (cacheData.jmlMds)
+            document.getElementById("jmlMds").value = cacheData.jmlMds;
+          if (cacheData.regionVal)
+            document.getElementById("regionSelect").value = cacheData.regionVal;
+          if (cacheData.targetFullCustom)
+            document.getElementById("targetFullCustom").value =
+              cacheData.targetFullCustom;
+          if (cacheData.targetSatCustom)
+            document.getElementById("targetSatCustom").value =
+              cacheData.targetSatCustom;
+
+          const jmlMds = parseInt(document.getElementById("jmlMds").value) || 1;
+          const daysList = getDaysInMonthInfo(
+            document.getElementById("monthPicker").value,
+          );
+
+          updateDcLabel();
+          prosesKalkulasi();
+          updateFilterDropdowns(daysList, jmlMds);
+
+          if (scheduleHasil.length > 0) {
+            renderPetaDanTabel();
+            showMsg(
+              "✅ Data mapping sebelumnya berhasil dimuat dari Cache!",
+              "success",
+            );
+            showCacheNotice(true);
+          }
+          return true;
+        } catch (e) {
+          console.warn("Gagal memuat cache:", e);
+          return false;
+        }
+      }
+
+      function clearCache() {
+        localStorage.removeItem(CACHE_KEY);
+        rawCsvData = [];
+        scheduleHasil = [];
+        mdsCustomNames = {};
+        dcDatesSet.clear();
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput) fileInput.value = "";
+        showCacheNotice(false);
+        location.reload();
+      }
+
+      function showCacheNotice(visible) {
+        const box = document.getElementById("cacheNoticeBox");
+        if (box) {
+          if (visible) box.classList.remove("hidden");
+          else box.classList.add("hidden");
+        }
+      }
 
       // === HELPER FUNCTIONS & ALERTS ===
 
@@ -608,7 +983,9 @@
                     `Toko ${idx + 1}`,
                   lat: parseFloat(d.Latitude || d.Lat || d.lat || d.LATITUDE),
                   lng: parseFloat(d.Longitude || d.Lng || d.lng || d.LONGITUDE),
-                  tipe: (d.Tipe || d.tipe || d.Type || d.type || "").trim().toLowerCase(),
+                  tipe: (d.Tipe || d.tipe || d.Type || d.type || "")
+                    .trim()
+                    .toLowerCase(),
                 }))
                 .filter((d) => !isNaN(d.lat) && !isNaN(d.lng));
 
@@ -625,6 +1002,7 @@
                 "success",
               );
               prosesKalkulasi();
+              saveCache();
             },
           });
         });
@@ -738,7 +1116,7 @@
           const rasioLoop = (totalTargetBulanan / totalTokoCsv).toFixed(1);
           badge.className =
             "mt-1 p-2 rounded-xl text-center text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200";
-          badge.textContent = `🔄 Re-visit Aktif! Toko diulang ~${rasioLoop}x sebulan (Maks 2x/minggu).`;
+          badge.textContent = `🔄 Re-visit Aktif! Toko diulang ~${rasioLoop}x sebulan (Maksimal 1x per 2 minggu).`;
         }
 
         updateFilterDropdowns(daysList, jmlMds);
@@ -749,7 +1127,7 @@
         const mdsSelect = document.getElementById("filterMds");
         mdsSelect.innerHTML = `<option value="all">Semua MDS (${jmlMds} Tim)</option>`;
         for (let i = 1; i <= jmlMds; i++) {
-          mdsSelect.innerHTML += `<option value="${i}">MDS ${i}</option>`;
+          mdsSelect.innerHTML += `<option value="${i}">${getMdsName(i)}</option>`;
         }
 
         const hariSelect = document.getElementById("filterHari");
@@ -767,7 +1145,36 @@
           hariSelect.innerHTML += `<option value="${d.dateStr}" ${isSelected}>Hari ${idx + 1} - ${d.dayName}, ${d.dateStr.split("-")[2]}/${d.dateStr.split("-")[1]} (${labelTipe}: ${target} Toko)</option>`;
         });
         hariSelect.innerHTML += `<option value="all">⚠️ Tampilkan Semua Hari (Bulan Ini)</option>`;
+
+        buildMdsNameInputs(jmlMds);
       }
+
+      // === MAP FULLSCREEN TOGGLE ===
+      let isMapFullscreen = false;
+      function toggleMapFullscreen() {
+        const container = document.getElementById("mapContainer");
+        const iconOpen = document.getElementById("iconFullscreenOpen");
+        const iconClose = document.getElementById("iconFullscreenClose");
+        isMapFullscreen = !isMapFullscreen;
+        if (isMapFullscreen) {
+          container.classList.add("fullscreen");
+          iconOpen.classList.add("hidden");
+          iconClose.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        } else {
+          container.classList.remove("fullscreen");
+          iconOpen.classList.remove("hidden");
+          iconClose.classList.add("hidden");
+          document.body.style.overflow = "";
+        }
+        // Paksa Leaflet recalculate ukuran tile
+        setTimeout(() => map.invalidateSize(), 100);
+      }
+
+      // Keluar fullscreen pakai tombol Esc
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isMapFullscreen) toggleMapFullscreen();
+      });
 
       function navigateHari(dir) {
         const select = document.getElementById("filterHari");
@@ -861,7 +1268,7 @@
 
       // === SPATIAL CLUSTERING & ROUTING ALGORITHM ===
 
-      // 1. Balanced Sector Spatial Clustering (Membagi toko JADI SEIMBANG PER MDS tanpa overlap)
+      // 1. Balanced Spatial Clustering (Memagi toko SEIMBANG & AMAN PER MDS tanpa crash)
       function balancedSpatialClustering(stores, k) {
         if (k <= 1 || stores.length <= k) {
           return Array(stores.length).fill(0);
@@ -883,26 +1290,29 @@
           angle: Math.atan2(s.lat - centerLat, s.lng - centerLng),
         }));
 
-        // Urutkan berdasarkan sudut (-PI sampai +PI)
+        // Urutkan secara spasial berdasarkan sudut
         storesWithAngle.sort((a, b) => a.angle - b.angle);
 
-        // Bagi secara presisi & seimbang ke K cluster MDS
+        // Bagi secara seimbang & 100% aman ke K cluster MDS
         let assignments = Array(stores.length).fill(0);
         let chunkSize = stores.length / k;
 
         storesWithAngle.forEach((item, sortedIdx) => {
           let clusterId = Math.min(Math.floor(sortedIdx / chunkSize), k - 1);
+          if (clusterId < 0) clusterId = 0;
           assignments[item.originalIndex] = clusterId;
         });
 
         return assignments;
       }
 
-      // 2. Nearest Neighbor Route di dalam 1 Cluster
+      // 2. Nearest Neighbor Route di dalam 1 Cluster (Deterministik murni geografis)
       function nearestNeighborRoute(clusterStores) {
         if (clusterStores.length <= 1) return [...clusterStores];
 
-        let unvisited = [...clusterStores];
+        // Sort dulu berdasarkan Lat (paling utara ke selatan)
+        // supaya urutan baris CSV sama sekali TIDAK mempengaruhi titik awal rute
+        let unvisited = [...clusterStores].sort((a, b) => b.lat - a.lat);
         let current = unvisited.shift();
         let ordered = [current];
 
@@ -929,7 +1339,7 @@
       // === GENERATE MASTER SCHEDULE ===
       function generateRuteLengkap() {
         if (rawCsvData.length === 0) {
-          showMsg("Upload file CSV-nya dulu bro!", "error");
+          showMsg("Upload file CSV-nya dulu!", "error");
           return;
         }
 
@@ -937,7 +1347,7 @@
         const jmlMds = parseInt(document.getElementById("jmlMds").value) || 1;
 
         if (!monthVal) {
-          showMsg("Pilih Bulan & Tahun dulu bro!", "error");
+          showMsg("Pilih Bulan & Tahun dulu !", "error");
           return;
         }
 
@@ -952,13 +1362,17 @@
         // Step 1: Spatial Clustering Seimbang per MDS (Bagi rata jumlah toko)
         const assignments = balancedSpatialClustering(rawCsvData, jmlMds);
 
-        // Group stores per MDS cluster
+        // Group stores per MDS cluster (dengan pengaman indeks)
         let mdsClusters = Array(jmlMds)
           .fill(null)
           .map(() => []);
         rawCsvData.forEach((toko, idx) => {
           let clusterId = assignments[idx];
-          mdsClusters[clusterId].push(toko);
+          if (clusterId >= 0 && clusterId < jmlMds) {
+            mdsClusters[clusterId].push(toko);
+          } else {
+            mdsClusters[0].push(toko);
+          }
         });
 
         // Step 2: Order stores per cluster using Nearest Neighbor
@@ -1018,6 +1432,7 @@
           "success",
         );
         renderPetaDanTabel();
+        saveCache();
       }
 
       // === RENDER CHARTS ANALYTICS ===
@@ -1029,17 +1444,33 @@
         if (rawCsvData.length === 0) return;
 
         // 1. Chart Jenis Toko (pakai kolom tipe dari CSV, fallback ke nama)
-        let countAlfa = 0, countIndo = 0, countMidi = 0, countLain = 0;
+        let countAlfa = 0,
+          countIndo = 0,
+          countMidi = 0,
+          countLain = 0;
         rawCsvData.forEach((toko) => {
           // Prioritas: baca kolom 'tipe' dari CSV
           let tipe = (toko.tipe || "").toLowerCase();
           let nameUpper = toko.nama.toUpperCase();
 
-          if (tipe === "alfamart" || (!tipe && (nameUpper.includes("ALFAMART") || nameUpper.includes("ALFA "))))
+          if (
+            tipe === "alfamart" ||
+            (!tipe &&
+              (nameUpper.includes("ALFAMART") || nameUpper.includes("ALFA ")))
+          )
             countAlfa++;
-          else if (tipe === "indomaret" || (!tipe && (nameUpper.includes("INDOMARET") || nameUpper.includes("INDO "))))
+          else if (
+            tipe === "indomaret" ||
+            (!tipe &&
+              (nameUpper.includes("INDOMARET") || nameUpper.includes("INDO ")))
+          )
             countIndo++;
-          else if (tipe === "midi" || tipe === "alfamidi" || (!tipe && (nameUpper.includes("MIDI") || nameUpper.includes("ALFAMIDI"))))
+          else if (
+            tipe === "midi" ||
+            tipe === "alfamidi" ||
+            (!tipe &&
+              (nameUpper.includes("MIDI") || nameUpper.includes("ALFAMIDI")))
+          )
             countMidi++;
           else countLain++;
         });
@@ -1074,10 +1505,14 @@
 
         // 2. Chart Beban Kunjungan / MDS
         const jmlMds = parseInt(document.getElementById("jmlMds").value) || 1;
-        let mdsLabels = [], mdsCounts = [], mdsColorsList = [];
+        let mdsLabels = [],
+          mdsCounts = [],
+          mdsColorsList = [];
         for (let i = 1; i <= jmlMds; i++) {
           mdsLabels.push(`MDS ${i}`);
-          mdsCounts.push(scheduleHasil.filter((item) => item.mdsId === i).length);
+          mdsCounts.push(
+            scheduleHasil.filter((item) => item.mdsId === i).length,
+          );
           mdsColorsList.push(mdsColors[(i - 1) % mdsColors.length]);
         }
 
@@ -1087,12 +1522,14 @@
           type: "bar",
           data: {
             labels: mdsLabels,
-            datasets: [{
-              label: "Kunjungan Bulanan",
-              data: mdsCounts,
-              backgroundColor: mdsColorsList,
-              borderRadius: 6,
-            }],
+            datasets: [
+              {
+                label: "Kunjungan Bulanan",
+                data: mdsCounts,
+                backgroundColor: mdsColorsList,
+                borderRadius: 6,
+              },
+            ],
           },
           options: {
             responsive: true,
@@ -1103,7 +1540,8 @@
         });
 
         // 3. Chart Status Kunjungan Bulanan (Visit Ke-1 vs Re-visit)
-        let countVisit1 = 0, countRevisit = 0;
+        let countVisit1 = 0,
+          countRevisit = 0;
         scheduleHasil.forEach((item) => {
           if (item.visitCount > 1) countRevisit++;
           else countVisit1++;
@@ -1117,12 +1555,14 @@
           type: "bar",
           data: {
             labels: ["Visit Ke-1 (Unik)", "Re-visit (Diulang)"],
-            datasets: [{
-              label: "Jumlah Kunjungan",
-              data: [countVisit1, countRevisit],
-              backgroundColor: ["#10b981", "#f59e0b"],
-              borderRadius: 6,
-            }],
+            datasets: [
+              {
+                label: "Jumlah Kunjungan",
+                data: [countVisit1, countRevisit],
+                backgroundColor: ["#10b981", "#f59e0b"],
+                borderRadius: 6,
+              },
+            ],
           },
           options: {
             responsive: true,
@@ -1133,26 +1573,135 @@
         });
       }
 
-      // === HELPER: Warna Marker berdasarkan Tipe Retail ===
-      // MDS dibedakan lewat warna garis (polyline)
-      // Marker dibedakan lewat warna tiap brand retail
-      const tipeColors = {
-        alfamart:  "#ef4444", // Merah
-        indomaret: "#2563eb", // Biru
-        midi:      "#16a34a", // Hijau
-        alfamidi:  "#16a34a", // Hijau (sama dengan midi)
-      };
+      // === MDS CUSTOM NAME & RE-ASSIGNMENT STATE ===
+      let mdsCustomNames = {}; // mdsId -> string (e.g. "Budi (Manado)")
+      let mdsLayersMap = new Map(); // mdsId -> { markers: [], polylines: [] }
 
-      function getMarkerIcon(tipe, label) {
-        const t = (tipe || "").toLowerCase();
-        const color = tipeColors[t] || "#64748b"; // default abu-abu
+      function getMdsName(mdsId) {
+        return mdsCustomNames[mdsId] || `MDS ${mdsId}`;
+      }
+
+      function getBrandBadge(tokoTipe, storeName) {
+        let tipe = (tokoTipe || "").toLowerCase();
+        let nameUpper = (storeName || "").toUpperCase();
+
+        if (tipe === "alfamart" || (!tipe && (nameUpper.includes("ALFAMART") || nameUpper.includes("ALFA ")))) {
+          return `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-red-100 text-red-700 border border-red-200 inline-flex items-center gap-1">🔴 ALFAMART</span>`;
+        }
+        if (tipe === "indomaret" || (!tipe && (nameUpper.includes("INDOMARET") || nameUpper.includes("INDO ")))) {
+          return `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-blue-100 text-blue-700 border border-blue-200 inline-flex items-center gap-1">🔵 INDOMARET</span>`;
+        }
+        if (tipe === "midi" || tipe === "alfamidi" || (!tipe && (nameUpper.includes("MIDI") || nameUpper.includes("ALFAMIDI")))) {
+          return `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-amber-100 text-amber-800 border border-amber-200 inline-flex items-center gap-1">🟡 ALFAMIDI</span>`;
+        }
+        return `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-slate-100 text-slate-700 border border-slate-200 inline-flex items-center gap-1">🏪 LAINNYA</span>`;
+      }
+
+      function getBrandText(tokoTipe, storeName) {
+        let tipe = (tokoTipe || "").toLowerCase();
+        let nameUpper = (storeName || "").toUpperCase();
+
+        if (tipe === "alfamart" || (!tipe && (nameUpper.includes("ALFAMART") || nameUpper.includes("ALFA ")))) {
+          return "Alfamart";
+        }
+        if (tipe === "indomaret" || (!tipe && (nameUpper.includes("INDOMARET") || nameUpper.includes("INDO ")))) {
+          return "Indomaret";
+        }
+        if (tipe === "midi" || tipe === "alfamidi" || (!tipe && (nameUpper.includes("MIDI") || nameUpper.includes("ALFAMIDI")))) {
+          return "Alfamidi";
+        }
+        return "Lainnya";
+      }
+
+      function updateMdsName(mdsId, val) {
+        if (!val || val.trim() === "") {
+          delete mdsCustomNames[mdsId];
+        } else {
+          mdsCustomNames[mdsId] = val.trim();
+        }
+        const jmlMds = parseInt(document.getElementById("jmlMds").value) || 1;
+        const daysList = getDaysInMonthInfo(
+          document.getElementById("monthPicker").value,
+        );
+        updateFilterDropdowns(daysList, jmlMds);
+        renderPetaDanTabel();
+        saveCache();
+      }
+
+      function buildMdsNameInputs(jmlMds) {
+        const container = document.getElementById("mdsNameBoxContainer");
+        const list = document.getElementById("mdsNameInputsList");
+        if (!container || !list) return;
+
+        container.classList.remove("hidden");
+        list.innerHTML = "";
+
+        for (let i = 1; i <= jmlMds; i++) {
+          let color = mdsColors[(i - 1) % mdsColors.length];
+          let currentVal = mdsCustomNames[i] || "";
+          list.innerHTML += `
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full shrink-0 border border-white shadow-sm" style="background-color: ${color};"></span>
+              <span class="text-xs font-bold text-slate-700 w-12 shrink-0">MDS ${i}:</span>
+              <input type="text" value="${currentVal}" placeholder="e.g. Budi" oninput="updateMdsName(${i}, this.value)"
+                class="flex-1 text-xs border border-slate-300 rounded-lg p-1.5 bg-white font-semibold focus:outline-none focus:border-blue-500 transition-colors" />
+            </div>
+          `;
+        }
+      }
+
+      function moveTokoToMds(tokoId, targetMdsId) {
+        const targetId = parseInt(targetMdsId);
+        if (!targetId || scheduleHasil.length === 0) return;
+
+        let count = 0;
+        scheduleHasil.forEach((item) => {
+          if (item.tokoId === tokoId) {
+            item.mdsId = targetId;
+            count++;
+          }
+        });
+
+        if (count > 0) {
+          showMsg(
+            `Berhasil memindahkan toko ke ${getMdsName(targetId)}!`,
+            "success",
+          );
+          renderPetaDanTabel();
+          saveCache();
+        }
+      }
+
+      let isTableFullscreen = false;
+      function toggleTableFullscreen() {
+        const card = document.getElementById("tableCard");
+        const lbl = document.getElementById("lblExpandTable");
+        isTableFullscreen = !isTableFullscreen;
+
+        if (isTableFullscreen) {
+          card.classList.add("fullscreen");
+          if (lbl) lbl.textContent = "Kecilkan Tabel";
+          document.body.style.overflow = "hidden";
+        } else {
+          card.classList.remove("fullscreen");
+          if (lbl) lbl.textContent = "Fullscreen Tabel";
+          document.body.style.overflow = "";
+        }
+      }
+
+      // === HELPER: Warna Marker Seragam per MDS Tim ===
+      function getMarkerIcon(color, label) {
+        const isLong = String(label).length > 2;
+        const width = isLong ? 40 : 30;
+        const height = 30;
+        const fontSize = isLong ? "10px" : "12px";
 
         return L.divIcon({
           className: "custom-div-icon",
-          html: `<div style="background-color:${color}; width:100%; height:100%; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:12px;">${label}</div>`,
-          iconSize: [30, 30],
-          iconAnchor: [15, 15],
-          popupAnchor: [0, -18],
+          html: `<div style="background-color:${color}; width:${width}px; height:${height}px; border-radius:15px; display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:${fontSize}; box-shadow:0 2px 6px rgba(0,0,0,0.35); border:2px solid white;">${label}</div>`,
+          iconSize: [width, height],
+          iconAnchor: [width / 2, height / 2],
+          popupAnchor: [0, -16],
         });
       }
 
@@ -1178,6 +1727,7 @@
         // 1. Render Peta Leaflet
         markersGroup.clearLayers();
         polylinesGroup.clearLayers();
+        mdsLayersMap.clear();
 
         let allLatLngs = [];
         const jmlMds = parseInt(document.getElementById("jmlMds").value) || 1;
@@ -1192,6 +1742,7 @@
 
           let color = mdsColors[(mds - 1) % mdsColors.length];
           let latlngsMds = [];
+          let currentMdsLayers = { markers: [], polylines: [] };
 
           mdsItems.forEach((item) => {
             let latlng = [item.lat, item.lng];
@@ -1207,57 +1758,107 @@
               ? `<br><span style="background:#d97706; color:white; padding:1px 6px; border-radius:4px; font-size:10px;">🚚 Hari Visit DC</span>`
               : "";
 
-            let icon = getMarkerIcon(item.tipe, item.urutanHariIni);
+            // Label marker: pakai prefix tim (M1-1, M2-1) saat 'Semua MDS' dipilih
+            let labelText =
+              filterMdsVal === "all" && jmlMds > 1
+                ? `M${mds}-${item.urutanHariIni}`
+                : `${item.urutanHariIni}`;
 
-            L.marker(latlng, { icon: icon })
+            let marker;
+            if (filterHariVal === "all") {
+              // Mode 'Semua Hari': Pakai L.circleMarker (Canvas) dengan warna seragam per MDS
+              marker = L.circleMarker(latlng, {
+                radius: 6,
+                fillColor: color,
+                color: "#ffffff",
+                weight: 1.5,
+                opacity: 0.9,
+                fillOpacity: 0.85,
+              });
+            } else {
+              // Mode 'Per Hari': Pakai L.marker (HTML DivIcon) seragam warna MDS + prefix tim
+              let icon = getMarkerIcon(color, labelText);
+              marker = L.marker(latlng, { icon: icon });
+            }
+
+            // Options for Re-assign dropdown in popup
+            let mdsOptionsHtml = "";
+            for (let m = 1; m <= jmlMds; m++) {
+              let sel = m === item.mdsId ? "selected" : "";
+              mdsOptionsHtml += `<option value="${m}" ${sel}>${getMdsName(m)}</option>`;
+            }
+
+            marker
               .bindPopup(
                 `
-                <div class="text-center font-sans p-1">
+                <div class="text-center font-sans p-1 min-w-[200px]">
                   <b style="color: ${color};" class="text-sm block mb-1">${item.nama}</b>
                   <div class="text-xs text-slate-600 mb-1">
-                    Jatah: <b>MDS ${item.mdsId}</b> | ${item.dayName}, ${item.dateStr}
+                    Jatah: <b>${getMdsName(item.mdsId)}</b> | ${item.dayName}, ${item.dateStr}
                   </div>
                   <div class="text-xs font-semibold text-slate-800 mb-1">
                     Urutan Ke-${item.urutanHariIni} (${item.targetTipe})
                   </div>
                   ${statusVisitBadge} ${dcBadge}
+
+                  <div class="mt-2.5 pt-2 border-t border-slate-200 text-left">
+                    <label class="text-[10px] font-bold text-slate-500 block mb-1 uppercase tracking-wider">🔄 Pindahkan Toko Ini Ke:</label>
+                    <div class="flex gap-1.5">
+                      <select id="popMoveSelect_${item.tokoId}" class="text-xs border border-slate-300 rounded-lg p-1.5 font-bold text-slate-800 flex-1 bg-slate-50">
+                        ${mdsOptionsHtml}
+                      </select>
+                      <button type="button" onclick="moveTokoToMds(${item.tokoId}, document.getElementById('popMoveSelect_${item.tokoId}').value)"
+                        class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-2.5 py-1.5 rounded-lg shadow transition-colors shrink-0">
+                        Pindah
+                      </button>
+                    </div>
+                  </div>
                 </div>
               `,
               )
               .addTo(markersGroup);
+
+            currentMdsLayers.markers.push(marker);
           });
 
           // Draw Polyline Line
           if (latlngsMds.length > 1) {
-            L.polyline(latlngsMds, {
+            let poly = L.polyline(latlngsMds, {
               color: color,
               weight: 4,
               opacity: 0.8,
               dashArray: "8, 8",
             }).addTo(polylinesGroup);
+            currentMdsLayers.polylines.push(poly);
           }
+
+          mdsLayersMap.set(mds, currentMdsLayers);
         }
 
         if (allLatLngs.length > 0) {
           map.fitBounds(L.latLngBounds(allLatLngs), { padding: [40, 40] });
         }
 
-        // Render Legend Bar
+        // Render Legend Bar Interaktif
         renderLegendBar(jmlMds);
 
-        // 2. Render Tabel HTML
+        // 2. Render Tabel HTML (Dioptimalkan dengan String Building & Cap 300 Baris agar browser tidak crash)
         const tbody = document.getElementById("tableBody");
         tbody.innerHTML = "";
 
+        const totalItems = filteredData.length;
         document.getElementById("lblTableSub").textContent =
-          `Menampilkan ${filteredData.length} toko (${filterMdsVal === "all" ? "Semua Tim MDS" : "MDS " + filterMdsVal} | ${filterHariVal === "all" ? "Semua Tanggal" : filterHariVal})`;
+          `Menampilkan ${Math.min(totalItems, 300)} dari ${totalItems} toko (${filterMdsVal === "all" ? "Semua Tim MDS" : getMdsName(parseInt(filterMdsVal))} | ${filterHariVal === "all" ? "Semua Tanggal" : filterHariVal})`;
 
-        if (filteredData.length === 0) {
+        if (totalItems === 0) {
           tbody.innerHTML = `<tr><td colspan="8" class="px-4 py-8 text-center text-slate-400 font-medium">Tidak ada rute yang cocok dengan filter.</td></tr>`;
           return;
         }
 
-        filteredData.forEach((item, index) => {
+        const dataToRender = filteredData.slice(0, 300);
+        let rowsHtml = "";
+
+        dataToRender.forEach((item, index) => {
           let badgeColor = mdsColors[(item.mdsId - 1) % mdsColors.length];
 
           let visitBadgeClass =
@@ -1275,26 +1876,52 @@
               ? "bg-indigo-500 text-white"
               : "bg-slate-600 text-white";
 
-          let tr = document.createElement("tr");
-          tr.className = "border-b hover:bg-slate-50 transition-colors";
-          tr.innerHTML = `
-            <td class="px-3 py-2.5 text-center font-bold text-slate-700">${index + 1}</td>
-            <td class="px-3 py-2.5 text-center font-semibold text-slate-800">${item.dayName}, ${item.dateStr.split("-")[2]}/${item.dateStr.split("-")[1]}</td>
-            <td class="px-3 py-2.5 text-center">
-              <span class="px-2.5 py-1 rounded-lg text-white font-bold text-[11px] inline-block shadow-sm" style="background-color: ${badgeColor};">MDS ${item.mdsId}</span>
-            </td>
-            <td class="px-3 py-2.5 text-center">
-              <span class="px-2 py-0.5 rounded-md font-bold text-[10px] ${targetBadgeClass}">${item.targetTipe}</span>
-            </td>
-            <td class="px-3 py-2.5 text-center">
-              <span class="px-2 py-0.5 rounded-md font-bold text-[10px] border ${visitBadgeClass}">${visitText}</span>
-            </td>
-            <td class="px-3 py-2.5 font-bold text-slate-900">${item.nama}</td>
-            <td class="px-3 py-2.5 font-mono text-[11px]">${item.lat}</td>
-            <td class="px-3 py-2.5 font-mono text-[11px]">${item.lng}</td>
+          // Options for MDS select in table row
+          let mdsTableOptionsHtml = "";
+          for (let m = 1; m <= jmlMds; m++) {
+            let sel = m === item.mdsId ? "selected" : "";
+            mdsTableOptionsHtml += `<option value="${m}" ${sel} class="bg-white text-slate-800 font-semibold">${getMdsName(m)}</option>`;
+          }
+
+          rowsHtml += `
+            <tr class="border-b hover:bg-slate-50 transition-colors">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-700">${index + 1}</td>
+              <td class="px-3 py-2.5 text-center font-semibold text-slate-800">${item.dayName}, ${item.dateStr.split("-")[2]}/${item.dateStr.split("-")[1]}</td>
+              <td class="px-3 py-2.5 text-center">
+                <select onchange="moveTokoToMds(${item.tokoId}, this.value)"
+                  title="Klik untuk pindahkan toko ini ke MDS lain"
+                  class="text-[11px] font-bold px-2.5 py-1 rounded-lg text-white shadow-sm cursor-pointer border-0 focus:outline-none transition-all hover:brightness-110"
+                  style="background-color: ${badgeColor};">
+                  ${mdsTableOptionsHtml}
+                </select>
+              </td>
+              <td class="px-3 py-2.5 text-center">
+                <span class="px-2 py-0.5 rounded-md font-bold text-[10px] ${targetBadgeClass}">${item.targetTipe}</span>
+              </td>
+              <td class="px-3 py-2.5 text-center">
+                <span class="px-2 py-0.5 rounded-md font-bold text-[10px] border ${visitBadgeClass}">${visitText}</span>
+              </td>
+              <td class="px-3 py-2.5 text-center">
+                ${getBrandBadge(item.tipe, item.nama)}
+              </td>
+              <td class="px-3 py-2.5 font-bold text-slate-900">${item.nama}</td>
+              <td class="px-3 py-2.5 font-mono text-[11px]">${item.lat}</td>
+              <td class="px-3 py-2.5 font-mono text-[11px]">${item.lng}</td>
+            </tr>
           `;
-          tbody.appendChild(tr);
         });
+
+        if (totalItems > 300) {
+          rowsHtml += `
+            <tr>
+              <td colspan="9" class="px-4 py-3 text-center text-slate-500 bg-slate-50 font-semibold italic border-t">
+                ⚠️ Menampilkan 300 baris pertama (dari total ${totalItems} rute). Untuk data lengkap 3.800+ toko, silakan gunakan tombol <b>"Export CSV"</b>.
+              </td>
+            </tr>
+          `;
+        }
+
+        tbody.innerHTML = rowsHtml;
       }
 
       function renderLegendBar(jmlMds) {
@@ -1308,13 +1935,58 @@
           if (filterMdsVal !== "all" && parseInt(filterMdsVal) !== mds)
             continue;
           let color = mdsColors[(mds - 1) % mdsColors.length];
-          legendBar.innerHTML += `
-            <div class="flex items-center gap-1.5 font-semibold">
-              <span class="w-3.5 h-3.5 rounded-full inline-block border border-white shadow-sm" style="background-color: ${color};"></span>
-              <span>MDS ${mds}</span>
-            </div>
+
+          let itemEl = document.createElement("div");
+          itemEl.className =
+            "flex items-center gap-1.5 font-semibold text-xs cursor-pointer px-2 py-1 rounded-lg hover:bg-slate-100 transition-all select-none border border-transparent hover:border-slate-200";
+          itemEl.innerHTML = `
+            <span class="w-3.5 h-3.5 rounded-full inline-block border border-white shadow-sm shrink-0" style="background-color: ${color};"></span>
+            <span class="text-slate-800 font-bold">${getMdsName(mds)}</span>
           `;
+
+          // Hover highlight event
+          itemEl.addEventListener("mouseenter", () => highlightMds(mds));
+          itemEl.addEventListener("mouseleave", () => resetHighlightMds());
+
+          // Click to solo filter
+          itemEl.addEventListener("click", () => {
+            const selectMds = document.getElementById("filterMds");
+            selectMds.value =
+              filterMdsVal === String(mds) ? "all" : String(mds);
+            renderPetaDanTabel();
+          });
+
+          legendBar.appendChild(itemEl);
         }
+      }
+
+      function highlightMds(targetMds) {
+        mdsLayersMap.forEach((layers, mdsId) => {
+          let isTarget = mdsId === targetMds;
+          let opacity = isTarget ? 1.0 : 0.12;
+          let fillOpacity = isTarget ? 0.9 : 0.08;
+
+          layers.markers.forEach((m) => {
+            if (m.setOpacity) m.setOpacity(opacity);
+            if (m.setStyle)
+              m.setStyle({ opacity: opacity, fillOpacity: fillOpacity });
+          });
+          layers.polylines.forEach((p) => {
+            p.setStyle({ opacity: opacity, weight: isTarget ? 5 : 2 });
+          });
+        });
+      }
+
+      function resetHighlightMds() {
+        mdsLayersMap.forEach((layers) => {
+          layers.markers.forEach((m) => {
+            if (m.setOpacity) m.setOpacity(1.0);
+            if (m.setStyle) m.setStyle({ opacity: 0.9, fillOpacity: 0.85 });
+          });
+          layers.polylines.forEach((p) => {
+            p.setStyle({ opacity: 0.8, weight: 4 });
+          });
+        });
       }
 
       // === EXPORT FULL CSV ===
@@ -1332,7 +2004,7 @@
 
         let dataExport = scheduleHasil.map((item, idx) => ({
           No: idx + 1,
-          "Tim MDS": `MDS ${item.mdsId}`,
+          "Tim MDS": getMdsName(item.mdsId),
           "Hari Kerja Ke-": item.hariKerjaKe,
           Hari: item.dayName,
           Tanggal: item.dateStr,
@@ -1342,6 +2014,7 @@
             item.visitCount > 1
               ? `Re-visit Ke-${item.visitCount}`
               : "Visit Ke-1",
+          "Brand / Tipe Toko": getBrandText(item.tipe, item.nama),
           "Nama Toko": item.nama,
           Latitude: item.lat,
           Longitude: item.lng,
