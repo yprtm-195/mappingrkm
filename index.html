@@ -393,23 +393,19 @@
         </div>
 
         <!-- Chart 3: Status Visit Kunjungan -->
-        <div
-          class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60"
-        >
+        <div class="bg-white p-3.5 rounded-2xl shadow-lg border border-slate-200 flex flex-col h-60">
           <div class="flex items-center justify-between mb-2">
-            <h3
-              class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
-            >
-              Status Visit
-            </h3>
-            <span
-              class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full"
-              >Visit vs Re-visit</span
-</div>
+            <h3 class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Status Visit</h3>
+            <span class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full">Visit vs Re-visit</span>
+          </div>
           <div class="flex-1 relative min-h-0">
             <canvas id="statusChart"></canvas>
           </div>
-             <!-- Tabel Data -->
+        </div>
+
+      </div><!-- end chart grid -->
+
+      <!-- Tabel Data -->
       <div class="bg-white p-3 md:p-4 rounded-2xl shadow-lg min-h-[260px] flex flex-col border border-slate-200 shrink-0">
         <div class="flex justify-between items-center mb-2.5 gap-2">
           <div class="min-w-0">
@@ -426,7 +422,7 @@
         </div>
 
         <!-- Scrollable Table (horizontal scroll on mobile) -->
-        <div class="flex-1 table-responsive border border-slate-200 rounded-xl overflow-x-auto">
+        <div class="flex-1 border border-slate-200 rounded-xl overflow-x-auto">
           <table class="w-full text-xs text-left text-slate-600 min-w-[600px]">
             <thead class="text-[11px] text-slate-700 uppercase bg-slate-100 sticky top-0 shadow-sm z-10 font-bold">
               <tr>
@@ -450,8 +446,10 @@
           </table>
         </div>
       </div><!-- end tabel -->
+
     </div><!-- end right panel -->
     </div><!-- end wrapper utama -->
+
 
     <!-- Modal Selecting Visit DC Dates -->
     <div
